@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listasFragment">
+
+    <fragment
+        android:id="@+id/listasFragment"
+        android:name="com.example.listasuper.ui.listas.ListasFragment"
+        android:label="Mis Listas">
+        <action
+            android:id="@+id/action_listas_to_detalle"
+            app:destination="@id/detalleListaFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detalleListaFragment"
+        android:name="com.example.listasuper.ui.detalle.DetalleListaFragment"
+        android:label="Detalle">
+        <argument
+            android:name="listaId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_detalle_to_agregar"
+            app:destination="@id/agregarProductoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/agregarProductoFragment"
+        android:name="com.example.listasuper.ui.agregar.AgregarProductoFragment"
+        android:label="Agregar Producto">
+        <argument
+            android:name="listaId"
+            app:argType="long" />
+    </fragment>
+</navigation>

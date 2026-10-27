@@ -1,0 +1,36 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Archivos de configuración de Kotlin y KSP
+.kotlin/
+
+# Logs
+*.log
+
+# Archivos de configuración de Firebase (si llegaras a usarlo)
+google-services.json
+
+# Keystore y archivos de firma (NUNCA subir esto)
+*.jks
+*.keystore
+keystore.properties
+
+# Archivos de caché de Gradle
+.gradle/
+build/
+
+# Archivos temporales del sistema
+Thumbs.db
