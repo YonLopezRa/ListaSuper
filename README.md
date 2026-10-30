@@ -10,6 +10,10 @@ La hice para practicar Kotlin y la forma en que hoy se construyen las apps Andro
 |:---:|:---:|:---:|:---:|
 | ![Listas](docs/screenshots/1_lista_listas.jpg) | ![Detalle](docs/screenshots/2_detalle_lista.jpg) | ![Agregar](docs/screenshots/3_antes_escanear.jpg) | ![Escaneado](docs/screenshots/4_despues_escanear.jpg) |
 
+## Video
+
+https://github.com/user-attachments/assets/3f233c73-cd40-4cbc-b1d1-e5cdfafa0ea5
+
 ## Resultado
 
 Con un solo escaneo, la app intenta llenar 3 datos del producto (nombre, marca e imagen) consultando hasta 3 fuentes. Si no lo encuentra, lo capturas a mano.
