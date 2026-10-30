@@ -31,4 +31,4 @@ Una aplicación Android para crear listas de supermercado de forma rápida: agre
 ## 🚀 Cómo ejecutar el proyecto
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/TU_USUARIO/ListaSuper.git
+   git clone https://github.com/YonLopezRa/ListaSuper.git
