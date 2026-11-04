@@ -1,13 +1,30 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ListaSuper" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+    <style name="Theme.ListaSuper" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/surfaceCard</item>
+        <item name="android:fontFamily">@font/plus_jakarta_regular</item>
+        <item name="android:windowBackground">@color/backgroundGeneral</item>
+        <item name="android:textColorPrimary">@color/textDefault</item>
+        <item name="android:textColorSecondary">@color/textSecondary</item>
     </style>
 
-    <style name="Theme.ListaSuper" parent="Base.Theme.ListaSuper" />
+    <!-- Estilos de Texto Rápidos -->
+    <style name="TextTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:fontFamily">@font/plus_jakarta_bold</item>
+        <item name="android:textColor">@color/textPrimary</item>
+    </style>
+
+    <!-- Estilo para el Toolbar -->
+    <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="titleTextColor">@color/textDefault</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="TextPrice" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:fontFamily">@font/plus_jakarta_extra_bold</item>
+        <item name="android:textColor">@color/textPrimary</item>
+    </style>
 </resources>

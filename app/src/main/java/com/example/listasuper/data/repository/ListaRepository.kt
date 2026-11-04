@@ -8,8 +8,8 @@ class ListaRepository(private val listaDao: ListaDao) {
 
     fun obtenerTodas(): Flow<List<ListaEntity>> = listaDao.obtenerTodas()
 
-    suspend fun crear(nombre: String): Long =
-        listaDao.insertar(ListaEntity(nombre = nombre))
+    suspend fun crear(nombre: String, tiendaId: String, gastoTotal: Double): Long =
+        listaDao.insertar(ListaEntity(nombre = nombre, tienda = tiendaId, gastoTotal = gastoTotal))
 
     suspend fun actualizar(lista: ListaEntity) = listaDao.actualizar(lista)
 

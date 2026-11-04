@@ -48,22 +48,38 @@ class AgregarProductoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
         binding.btnEscanear.setOnClickListener { lanzarEscaner() }
         binding.btnGuardar.setOnClickListener { guardar() }
 
         // Observar producto encontrado
         viewModel.productoEncontrado.observe(viewLifecycleOwner) { producto ->
-            producto?.let {
-                binding.etNombre.setText(it.nombre)
-                binding.etMarca.setText(it.marca ?: "")
+            if (producto != null) {
+                binding.etNombre.setText(producto.nombre)
+                binding.etMarca.setText(producto.marca ?: "")
                 hideKeyboard()
-                imagenUrl = it.imagenUrl
-                if (!it.imagenUrl.isNullOrEmpty()) {
+                imagenUrl = producto.imagenUrl
+
+                if (!producto.imagenUrl.isNullOrEmpty()) {
                     binding.ivPreview.visibility = View.VISIBLE
-                    binding.ivPreview.load(it.imagenUrl)
+                    binding.ivPreview.setImageDrawable(null)
+                    binding.ivPreview.load(producto.imagenUrl) {
+                        crossfade(true)
+                        // memoryCacheKey(producto.imagenUrl) // Si sigues viendo la misma imagen, descomenta esta línea
+                    }
+                } else {
+                    binding.ivPreview.visibility = View.GONE
+                    binding.ivPreview.setImageDrawable(null)
                 }
-                Toast.makeText(requireContext(), "Producto encontrado: ${it.nombre}", Toast.LENGTH_SHORT).show()
-            } ?: run {
+                Toast.makeText(requireContext(), "Producto encontrado: ${producto.nombre}", Toast.LENGTH_SHORT).show()
+
+            } else {
+                // Si no se encontró ningún producto, limpiamos TODA la vista
+                binding.ivPreview.visibility = View.GONE
+                binding.ivPreview.setImageDrawable(null)
+                imagenUrl = null
                 Toast.makeText(requireContext(), "Producto no encontrado en la base de datos. Completa manualmente.", Toast.LENGTH_LONG).show()
             }
         }

@@ -1,46 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardLista"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/borderColor"
+    app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <!-- Logo de la tienda (Ícono cuadrado) -->
+        <ImageView
+            android:id="@+id/ivTiendaLogo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_circle"
+            android:padding="8dp"
+            android:src="@drawable/ic_shopping_cart_foreground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Nombre de la lista -->
         <TextView
             android:id="@+id/tvNombreLista"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/plus_jakarta_semi_bold"
+            android:textColor="@color/textPrimary"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@id/ivEliminar"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Súper semanal" />
+            app:layout_constraintStart_toEndOf="@id/ivTiendaLogo"
+            app:layout_constraintTop_toTopOf="@id/ivTiendaLogo"
+            tools:text="Despensa quincenal Walmart" />
+
+        <!-- Precio Estimado -->
+        <TextView
+            android:id="@+id/tvPrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/plus_jakarta_extra_bold"
+            android:textColor="@color/textPrimary"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/tvNombreLista"
+            app:layout_constraintTop_toBottomOf="@id/tvNombreLista"
+            tools:text="$1,450.00" />
 
         <TextView
             android:id="@+id/tvFecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/plus_jakarta_regular"
+            android:textColor="@color/textSecondary"
             android:textSize="12sp"
-            android:textColor="@android:color/darker_gray"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNombreLista"
-            tools:text="01/01/2025" />
+            app:layout_constraintStart_toStartOf="@id/tvPrecio"
+            app:layout_constraintTop_toBottomOf="@id/tvPrecio"
+            tools:text="Hace 2 días" />
 
         <ImageView
             android:id="@+id/ivEliminar"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_delete"
-            app:tint="@android:color/holo_red_light"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_delete_foreground"
+            app:tint="@color/textTertiary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

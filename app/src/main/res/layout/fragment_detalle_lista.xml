@@ -9,16 +9,17 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/purple_500"
-        app:titleTextColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:theme="@style/ToolbarStyle"
+        app:title="Detalle de la lista"
+        app:titleTextAppearance="@style/TextTitle"
+        app:layout_constraintTop_toTopOf="parent"  />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAgregarProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_input_add"
-        android:backgroundTint="@color/purple_500"
+        android:backgroundTint="@color/colorPrimary"
         app:tint="@android:color/white"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"

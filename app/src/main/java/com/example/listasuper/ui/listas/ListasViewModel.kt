@@ -20,8 +20,8 @@ class ListasViewModel(application: Application) : AndroidViewModel(application) 
 
     val listas: Flow<List<ListaEntity>> = repository.obtenerTodas()
 
-    fun crearLista(nombre: String) = viewModelScope.launch {
-        repository.crear(nombre)
+    fun crearLista(nombre: String, tiendaId: String, gastoTotal: Double) = viewModelScope.launch {
+        repository.crear(nombre, tiendaId, gastoTotal)
     }
 
     fun eliminarLista(lista: ListaEntity) = viewModelScope.launch {
