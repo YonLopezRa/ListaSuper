@@ -21,6 +21,7 @@ class ListasFragment : Fragment() {
     private var _binding: FragmentListasBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ListasViewModel by viewModels()
+    private lateinit var adapter: ListasAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentListasBinding.inflate(inflater, container, false)
@@ -29,8 +30,7 @@ class ListasFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val adapter = ListasAdapter(
+        adapter = ListasAdapter(
             onClick = { lista ->
                 val action = ListasFragmentDirections.actionListasToDetalle(lista.id)
                 findNavController().navigate(action)
@@ -40,15 +40,31 @@ class ListasFragment : Fragment() {
 
         binding.rvListas.layoutManager = LinearLayoutManager(requireContext())
         binding.rvListas.adapter = adapter
+        createObserver()
+        binding.fabAgregarLista.setOnClickListener { mostrarDialogoNuevaLista() }
+    }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.listasConEstadisticas.observe(viewLifecycleOwner) { listas ->
-                adapter.submitList(listas)
-                binding.tvVacio.visibility = if (listas.isEmpty()) View.VISIBLE else View.GONE
-            }
+    private fun createObserver() {
+        // Observar las listas con estadísticas
+        viewModel.listasConEstadisticas.observe(viewLifecycleOwner) { listas ->
+            adapter.submitList(listas)
+            binding.tvVacio.visibility = if (listas.isEmpty()) View.VISIBLE else View.GONE
         }
 
-        binding.fabAgregarLista.setOnClickListener { mostrarDialogoNuevaLista() }
+        // Observar el ahorro inteligente
+        viewModel.ahorroInteligente.observe(viewLifecycleOwner) { ahorro ->
+            val format = java.text.NumberFormat.getCurrencyInstance(java.util.Locale("es", "MX"))
+            if (ahorro > 0) {
+                binding.tvAhorroMonto.text = format.format(ahorro)
+                binding.tvAhorroMensaje.text = "¡Ahorraste vs. tu lista anterior!"
+            } else if (ahorro < 0) {
+                binding.tvAhorroMonto.text = format.format(Math.abs(ahorro))
+                binding.tvAhorroMensaje.text = "Gastaste un poco más que la vez pasada"
+            } else {
+                binding.tvAhorroMonto.text = "$0.00"
+                binding.tvAhorroMensaje.text = "Sin comparación disponible aún"
+            }
+        }
     }
 
     private fun mostrarDialogoNuevaLista() {

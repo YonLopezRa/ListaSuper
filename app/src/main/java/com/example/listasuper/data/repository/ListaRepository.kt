@@ -24,4 +24,11 @@ class ListaRepository(private val listaDao: ListaDao, private val productoDao: P
         val gasto = productoDao.sumarGastos(listaId) ?: 0.0
         return Triple(total, comprados, gasto)
     }
+
+    fun obtenerTodasConProductos(): Flow<List<ListaDao.ListaConProductos>> =
+        listaDao.obtenerTodasConProductos()
+
+    suspend fun obtenerGastoTotal(listaId: Long): Double {
+        return productoDao.sumarGastos(listaId) ?: 0.0
+    }
 }

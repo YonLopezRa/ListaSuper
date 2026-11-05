@@ -23,15 +23,33 @@ class ListasViewModel(application: Application) : AndroidViewModel(application) 
 
     val listas: Flow<List<ListaEntity>> = repository.obtenerTodas()
 
-    val listasConEstadisticas = listas.map { listas ->
-        listas.map { lista ->
-            val stats = repository.obtenerEstadisticas(lista.id)
+    val listasConEstadisticas = repository.obtenerTodasConProductos().map { listas ->
+        listas.map { item ->
+            val total = item.productos.size
+            val comprados = item.productos.count { it.comprado }
+            val gasto = item.productos.sumOf { it.precio ?: 0.0 }
+
             ListaConEstadisticas(
-                lista = lista,
-                totalProductos = stats.first,
-                productosComprados = stats.second,
-                gastoReal = stats.third
+                lista = item.lista,
+                totalProductos = total,
+                productosComprados = comprados,
+                gastoReal = gasto
             )
+        }
+    }.asLiveData()
+
+    val ahorroInteligente = repository.obtenerTodas().map { listas ->
+        // Tomamos las 2 listas más recientes (ya vienen ordenadas por fecha)
+        if (listas.size >= 2) {
+            val listaActual = listas[0]
+            val listaAnterior = listas[1]
+
+            val gastoActual = repository.obtenerGastoTotal(listaActual.id)
+            val gastoAnterior = repository.obtenerGastoTotal(listaAnterior.id)
+
+            gastoAnterior - gastoActual // Positivo = ahorro, negativo = gastaste más
+        } else {
+            0.0
         }
     }.asLiveData()
 

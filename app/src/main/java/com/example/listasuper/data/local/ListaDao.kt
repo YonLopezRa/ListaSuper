@@ -3,6 +3,8 @@ package com.example.listasuper.data.local
 import androidx.room.*
 import com.example.listasuper.data.local.entities.ListaEntity
 import kotlinx.coroutines.flow.Flow
+import androidx.room.Transaction
+import com.example.listasuper.data.local.entities.ProductoEntity
 
 @Dao
 interface ListaDao {
@@ -20,4 +22,17 @@ interface ListaDao {
 
     @Query("SELECT * FROM listas WHERE id = :id")
     suspend fun obtenerPorId(id: Long): ListaEntity?
+
+    data class ListaConProductos(
+        @Embedded val lista: ListaEntity,
+        @Relation(
+            parentColumn = "id",
+            entityColumn = "listaId"
+        )
+        val productos: List<ProductoEntity>
+    )
+
+    @Transaction
+    @Query("SELECT * FROM listas ORDER BY fechaCreacion DESC")
+    fun obtenerTodasConProductos(): Flow<List<ListaConProductos>>
 }
