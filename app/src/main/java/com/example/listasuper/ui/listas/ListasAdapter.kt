@@ -9,19 +9,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.listasuper.R
 import com.example.listasuper.data.local.entities.ListaEntity
 import com.example.listasuper.databinding.ItemListaBinding
+import com.example.listasuper.data.local.ListaConEstadisticas
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ListasAdapter(
     private val onClick: (ListaEntity) -> Unit,
     private val onDelete: (ListaEntity) -> Unit
-) : ListAdapter<ListaEntity, ListasAdapter.ViewHolder>(DIFF) {
+) : ListAdapter<ListaConEstadisticas, ListasAdapter.ViewHolder>(DIFF) {
 
     companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<ListaEntity>() {
-            override fun areItemsTheSame(a: ListaEntity, b: ListaEntity) = a.id == b.id
-            override fun areContentsTheSame(a: ListaEntity, b: ListaEntity) = a == b
-        }
+        private val DIFF: DiffUtil.ItemCallback<ListaConEstadisticas> =
+            object : DiffUtil.ItemCallback<ListaConEstadisticas>() {
+                override fun areItemsTheSame(a: ListaConEstadisticas, b: ListaConEstadisticas) = a.lista.id == b.lista.id
+                override fun areContentsTheSame(a: ListaConEstadisticas, b: ListaConEstadisticas) = a == b
+            }
     }
 
     inner class ViewHolder(val binding: ItemListaBinding) : RecyclerView.ViewHolder(binding.root)
@@ -32,7 +34,8 @@ class ListasAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val lista = getItem(position)
+        val item = getItem(position)
+        val lista = item.lista
         val context = holder.itemView.context
 
         with(holder.binding) {
@@ -40,11 +43,15 @@ class ListasAdapter(
 
             // Formatear el gasto como moneda
             val format = java.text.NumberFormat.getCurrencyInstance(java.util.Locale("es", "MX"))
-            tvPrecio.text = format.format(lista.gastoTotal)
+            tvPrecio.text = format.format(item.gastoReal)
 
-            // Formatear fecha
-            val sdf = java.text.SimpleDateFormat("dd MMM", java.util.Locale.getDefault())
-            tvFecha.text = sdf.format(java.util.Date(lista.fechaCreacion))
+            val progreso = if (item.totalProductos > 0) {
+                (item.productosComprados * 100) / item.totalProductos
+            } else 0
+
+            pbProgreso.progress = progreso
+            tvProgreso.text = "$progreso% completado"
+            tvBadgeProductos.text = "${item.productosComprados} de ${item.totalProductos} productos"
 
             // 🎨 MAGIA: Cambiar colores según la tienda
             when (lista.tienda) {

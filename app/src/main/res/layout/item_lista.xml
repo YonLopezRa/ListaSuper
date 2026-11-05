@@ -16,18 +16,26 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Logo de la tienda (Ícono cuadrado) -->
-        <ImageView
-            android:id="@+id/ivTiendaLogo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/bg_circle"
-            android:padding="8dp"
-            android:src="@drawable/ic_shopping_cart_foreground"
+        <!-- Contenedor del logo -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardIconContainer"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Nombre de la lista -->
+            <ImageView
+                android:id="@+id/ivTiendaLogo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_shopping_cart_foreground" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Nombre y precio -->
         <TextView
             android:id="@+id/tvNombreLista"
             android:layout_width="0dp"
@@ -37,11 +45,10 @@
             android:textColor="@color/textPrimary"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@id/ivEliminar"
-            app:layout_constraintStart_toEndOf="@id/ivTiendaLogo"
-            app:layout_constraintTop_toTopOf="@id/ivTiendaLogo"
+            app:layout_constraintStart_toEndOf="@id/cardIconContainer"
+            app:layout_constraintTop_toTopOf="@id/cardIconContainer"
             tools:text="Despensa quincenal Walmart" />
 
-        <!-- Precio Estimado -->
         <TextView
             android:id="@+id/tvPrecio"
             android:layout_width="wrap_content"
@@ -49,22 +56,10 @@
             android:layout_marginTop="4dp"
             android:fontFamily="@font/plus_jakarta_extra_bold"
             android:textColor="@color/textPrimary"
-            android:textSize="20sp"
+            android:textSize="22sp"
             app:layout_constraintStart_toStartOf="@id/tvNombreLista"
             app:layout_constraintTop_toBottomOf="@id/tvNombreLista"
             tools:text="$1,450.00" />
-
-        <TextView
-            android:id="@+id/tvFecha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/plus_jakarta_regular"
-            android:textColor="@color/textSecondary"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/tvPrecio"
-            app:layout_constraintTop_toBottomOf="@id/tvPrecio"
-            tools:text="Hace 2 días" />
 
         <ImageView
             android:id="@+id/ivEliminar"
@@ -74,5 +69,49 @@
             app:tint="@color/textTertiary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Barra de progreso (gasto vs. estimado) -->
+        <ProgressBar
+            android:id="@+id/pbProgreso"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="16dp"
+            android:progressTint="@color/colorPrimary"
+            android:progressBackgroundTint="@color/colorPrimaryLight"
+            android:max="100"
+            android:progress="65"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPrecio" />
+
+        <!-- Texto de progreso (ej. "65% completado") -->
+        <TextView
+            android:id="@+id/tvProgreso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/plus_jakarta_medium"
+            android:textColor="@color/textSecondary"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pbProgreso"
+            tools:text="65% completado" />
+
+        <!-- Badge de productos comprados vs. total -->
+        <TextView
+            android:id="@+id/tvBadgeProductos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_badge_green"
+            android:fontFamily="@font/plus_jakarta_medium"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProgreso"
+            tools:text="8 de 12 productos" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

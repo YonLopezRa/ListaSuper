@@ -18,7 +18,7 @@ class DetalleListaViewModel (application: Application) : AndroidViewModel(applic
 
     init {
         val db = AppDatabase.getInstance(application)
-        listaRepo = ListaRepository(db.listaDao())
+        listaRepo = ListaRepository(db.listaDao(), db.productoDao())
         productoRepo = ProductoRepository(db.productoDao())
     }
 

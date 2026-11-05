@@ -73,4 +73,11 @@ class ProductoRepository(private val productoDao: ProductoDao) {
             null
         }
     }
+
+    suspend fun obtenerEstadisticas(listaId: Long): Triple<Int, Int, Double> {
+        val total = productoDao.contarProductos(listaId)
+        val comprados = productoDao.contarComprados(listaId)
+        val gasto = productoDao.sumarGastos(listaId) ?: 0.0
+        return Triple(total, comprados, gasto)
+    }
 }

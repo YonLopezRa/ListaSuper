@@ -23,5 +23,6 @@ data class ProductoEntity(
     val marca: String? = null,
     val imagenUrl: String? = null,
     val cantidad: Int = 1,
-    val comprado: Boolean = false
+    val comprado: Boolean = false,
+    val precio: Double? = null
 )

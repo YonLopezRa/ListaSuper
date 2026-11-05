@@ -42,7 +42,7 @@ class ListasFragment : Fragment() {
         binding.rvListas.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.listas.collectLatest { listas ->
+            viewModel.listasConEstadisticas.observe(viewLifecycleOwner) { listas ->
                 adapter.submitList(listas)
                 binding.tvVacio.visibility = if (listas.isEmpty()) View.VISIBLE else View.GONE
             }
