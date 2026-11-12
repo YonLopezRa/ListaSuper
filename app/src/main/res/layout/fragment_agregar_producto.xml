@@ -103,6 +103,22 @@
                     android:text="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPrecio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Precio unitario (MXN)"
+                app:layout_constraintTop_toBottomOf="@id/tilCantidad"
+                app:prefixText="$">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPrecio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <!-- Imagen de vista previa -->
             <ImageView
                 android:id="@+id/ivPreview"

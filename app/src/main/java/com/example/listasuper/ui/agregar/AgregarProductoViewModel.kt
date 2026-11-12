@@ -34,7 +34,7 @@ class AgregarProductoViewModel(application: Application) : AndroidViewModel(appl
         }
     }
 
-    fun guardarProducto(nombre: String, marca: String?, cantidad: Int, listaId: Long, codigoBarras: String?, imagenUrl: String?) {
+    fun guardarProducto(nombre: String, marca: String?, cantidad: Int, precio: Double, listaId: Long, codigoBarras: String?, imagenUrl: String?) {
         viewModelScope.launch {
             val producto = ProductoEntity(
                 listaId = listaId,
@@ -42,7 +42,8 @@ class AgregarProductoViewModel(application: Application) : AndroidViewModel(appl
                 nombre = nombre,
                 marca = marca,
                 imagenUrl = imagenUrl,
-                cantidad = cantidad
+                cantidad = cantidad,
+                precio = precio
             )
             productoRepo.agregar(producto)
         }

@@ -25,15 +25,19 @@ class ListasViewModel(application: Application) : AndroidViewModel(application) 
 
     val listasConEstadisticas = repository.obtenerTodasConProductos().map { listas ->
         listas.map { item ->
-            val total = item.productos.size
-            val comprados = item.productos.count { it.comprado }
-            val gasto = item.productos.sumOf { it.precio ?: 0.0 }
+            val totalProductos = item.productos.size
+            val productosComprados = item.productos.count { it.comprado }
+            val totalPiezas = item.productos.sumOf { it.cantidad }
+            val piezasCompradas = item.productos.filter { it.comprado }.sumOf { it.cantidad }
+            val gastoReal = item.productos.sumOf { (it.precio) * it.cantidad }
 
             ListaConEstadisticas(
                 lista = item.lista,
-                totalProductos = total,
-                productosComprados = comprados,
-                gastoReal = gasto
+                totalProductos = totalProductos,
+                productosComprados = productosComprados,
+                totalPiezas = totalPiezas,
+                piezasCompradas = piezasCompradas,
+                gastoReal = gastoReal
             )
         }
     }.asLiveData()
@@ -53,8 +57,8 @@ class ListasViewModel(application: Application) : AndroidViewModel(application) 
         }
     }.asLiveData()
 
-    fun crearLista(nombre: String, tiendaId: String, gastoTotal: Double) = viewModelScope.launch {
-        repository.crear(nombre, tiendaId, gastoTotal)
+    fun crearLista(nombre: String, tiendaId: String) = viewModelScope.launch {
+        repository.crear(nombre, tiendaId)
     }
 
     fun eliminarLista(lista: ListaEntity) = viewModelScope.launch {

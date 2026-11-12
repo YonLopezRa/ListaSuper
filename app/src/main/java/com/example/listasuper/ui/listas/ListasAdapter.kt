@@ -46,12 +46,12 @@ class ListasAdapter(
             tvPrecio.text = format.format(item.gastoReal)
 
             val progreso = if (item.totalProductos > 0) {
-                (item.productosComprados * 100) / item.totalProductos
+                (item.piezasCompradas * 100) / item.totalPiezas
             } else 0
 
             pbProgreso.progress = progreso
             tvProgreso.text = "$progreso% completado"
-            tvBadgeProductos.text = "${item.productosComprados} de ${item.totalProductos} productos"
+            tvBadgeProductos.text = "${item.piezasCompradas} de ${item.totalPiezas} piezas"
 
             // 🎨 MAGIA: Cambiar colores según la tienda
             when (lista.tienda) {

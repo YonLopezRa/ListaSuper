@@ -9,7 +9,7 @@ import com.example.listasuper.data.local.entities.ProductoEntity
 
 @Database(
     entities = [ListaEntity::class, ProductoEntity::class],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

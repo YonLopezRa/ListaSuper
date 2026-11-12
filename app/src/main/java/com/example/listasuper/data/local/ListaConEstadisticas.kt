@@ -6,5 +6,7 @@ data class ListaConEstadisticas(
     val lista: ListaEntity,
     val totalProductos: Int,
     val productosComprados: Int,
+    val totalPiezas: Int,
+    val piezasCompradas: Int,
     val gastoReal: Double // Suma de precios de los productos
 )

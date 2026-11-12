@@ -113,6 +113,7 @@ class AgregarProductoFragment : Fragment() {
         val nombre = binding.etNombre.text.toString().trim()
         val marca = binding.etMarca.text.toString().trim().ifEmpty { null }
         val cantidad = binding.etCantidad.text.toString().toIntOrNull() ?: 1
+        val precio = binding.etPrecio.text.toString().toDoubleOrNull() ?: 0.0
 
         if (nombre.isEmpty()) {
             binding.tilNombre.error = "El nombre es obligatorio"
@@ -120,7 +121,15 @@ class AgregarProductoFragment : Fragment() {
         }
         binding.tilNombre.error = null
 
-        viewModel.guardarProducto(nombre, marca, cantidad, args.listaId, codigoBarras, imagenUrl)
+        viewModel.guardarProducto(
+            nombre = nombre,
+            marca = marca,
+            cantidad = cantidad,
+            precio = precio,
+            listaId = args.listaId,
+            codigoBarras = codigoBarras,
+            imagenUrl = imagenUrl
+        )
         Toast.makeText(requireContext(), "Producto agregado", Toast.LENGTH_SHORT).show()
         findNavController().popBackStack()
     }

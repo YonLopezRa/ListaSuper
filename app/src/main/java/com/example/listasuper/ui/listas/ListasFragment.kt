@@ -70,7 +70,6 @@ class ListasFragment : Fragment() {
     private fun mostrarDialogoNuevaLista() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_crear_lista, null)
         val etNombre = dialogView.findViewById<TextInputEditText>(R.id.etNombre)
-        val etGasto = dialogView.findViewById<TextInputEditText>(R.id.etGasto)
         val spinner = dialogView.findViewById<Spinner>(R.id.spinnerTienda)
 
         val tiendas = arrayOf("Walmart", "Chedraui", "Target", "La Comer", "Soriana",  "General / Otra")
@@ -82,7 +81,6 @@ class ListasFragment : Fragment() {
             .setView(dialogView)
             .setPositiveButton("Crear") { _, _ ->
                 val nombre = etNombre.text.toString().trim()
-                val gasto = etGasto.text.toString().toDoubleOrNull() ?: 0.0
                 val tiendaIndex = spinner.selectedItemPosition
 
                 val tiendaId = when (tiendaIndex) {
@@ -95,7 +93,7 @@ class ListasFragment : Fragment() {
                 }
 
                 if (nombre.isNotEmpty()) {
-                    viewModel.crearLista(nombre, tiendaId, gasto) //
+                    viewModel.crearLista(nombre, tiendaId) //
                 }
             }
             .setNegativeButton("Cancelar", null)
